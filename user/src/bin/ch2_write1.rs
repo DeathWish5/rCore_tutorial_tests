@@ -6,6 +6,10 @@ extern crate user_lib;
 use user_lib::{write, STDOUT};
 const DATA_STRING:&'static str = "string from data section";
 
+/*
+理想结果：正确输出、退出。
+*/
+
 #[no_mangle]
 pub fn main() -> i32 {
     assert_eq!(write(STDOUT, DATA_STRING.as_bytes()), DATA_STRING.len() as isize);

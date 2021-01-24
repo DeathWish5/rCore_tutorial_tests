@@ -8,6 +8,10 @@ extern crate alloc;
 use user_lib::{write, STDOUT};
 use alloc::slice;
 
+/*
+理想结果：程序不报错，正确退出。
+*/
+
 const STACK_SIZE: usize = 0x1000;
 
 unsafe fn r_sp() -> usize {

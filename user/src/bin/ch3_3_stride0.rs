@@ -5,6 +5,10 @@
 extern crate user_lib;
 use user_lib::{get_time, set_priority};
 
+/*
+理想结果：6个进程退出时，输出 count 基本正比于 priority
+*/
+
 fn spin_delay() {
     let mut j = true;
     for _ in 0..10 {
