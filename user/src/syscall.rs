@@ -12,6 +12,9 @@ const SYSCALL_WAITPID: usize = 260;
 const SYSCALL_SET_PRIORITY: usize = 140;
 const SYSCALL_MUNMAP: usize = 215;
 const SYSCALL_MMAP: usize = 222;
+const SYSCALL_SPAWN: usize = 400;
+const SYSCALL_MAIL_READ: usize = 401;
+const SYSCALL_MAIL_WRITE: usize = 402;
 
 fn syscall(id: usize, args: [usize; 3]) -> isize {
     let mut ret: isize;
@@ -43,6 +46,14 @@ pub fn sys_read(fd: usize, buffer: &mut [u8]) -> isize {
 
 pub fn sys_write(fd: usize, buffer: &[u8]) -> isize {
     syscall(SYSCALL_WRITE, [fd, buffer.as_ptr() as usize, buffer.len()])
+}
+
+pub fn sys_mail_read(buffer: &mut [u8]) -> isize {
+    syscall(SYSCALL_MAIL_READ, [buffer.as_ptr() as usize, buffer.len(), 0])
+}
+
+pub fn sys_mail_write(pid: usize, buffer: &[u8]) -> isize {
+    syscall(SYSCALL_MAIL_WRITE, [pid, buffer.as_ptr() as usize, buffer.len()])
 }
 
 pub fn sys_exit(exit_code: i32) -> ! {
@@ -84,4 +95,8 @@ pub fn sys_mmap(start: usize, len: usize, prot: usize) -> isize {
 
 pub fn sys_munmap(start: usize, len: usize) -> isize {
     syscall(SYSCALL_MUNMAP, [start, len, 0])
+}
+
+pub fn sys_spawn(path: &str) -> isize {
+    syscall(SYSCALL_SPAWN, [path.as_ptr() as usize, 0, 0])
 }

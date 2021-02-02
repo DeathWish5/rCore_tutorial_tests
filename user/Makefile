@@ -23,7 +23,9 @@ binary: elf
 CH2_TESTS := ch2 ch2t
 CH3_TESTS_BASE := $(CH2_TESTS) ch3_0
 CH3_TESTS_SEP := ch3_1 ch3_2 ch3_3
-CH4_TESTS := ch4
+CH4_TESTS := ch2 ch3_0 ch4
+ch5_TESTS := $(CH4_TESTS) ch5
+ch6_TESTS := $(CH5_TESTS) ch6
 
 ch2: binary
 	@rm -rf $(BUILD_DIR)
@@ -48,7 +50,21 @@ ch4: binary
 	@$(foreach t, $(CH4_TESTS), cp $(TARGET_DIR)/$(t)_*.bin $(BUILD_DIR)/bin/;)
 	@$(foreach t, $(CH4_TESTS), cp $(TARGET_DIR)/$(t)_*.elf $(BUILD_DIR)/elf/;)
 
-build: ch4
+ch5: binary
+	@rm -rf $(BUILD_DIR)
+	@mkdir -p $(BUILD_DIR)/bin/
+	@mkdir -p $(BUILD_DIR)/elf/
+	@$(foreach t, $(CH5_TESTS), cp $(TARGET_DIR)/$(t)_*.bin $(BUILD_DIR)/bin/;)
+	@$(foreach t, $(CH5_TESTS), cp $(TARGET_DIR)/$(t)_*.elf $(BUILD_DIR)/elf/;)
+
+ch6: binary
+	@rm -rf $(BUILD_DIR)
+	@mkdir -p $(BUILD_DIR)/bin/
+	@mkdir -p $(BUILD_DIR)/elf/
+	@$(foreach t, $(CH6_TESTS), cp $(TARGET_DIR)/$(t)_*.bin $(BUILD_DIR)/bin/;)
+	@$(foreach t, $(CH6_TESTS), cp $(TARGET_DIR)/$(t)_*.elf $(BUILD_DIR)/elf/;)
+
+build: ch6
 
 clean:
 	@cargo clean
