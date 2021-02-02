@@ -6,6 +6,10 @@ extern crate user_lib;
 
 use user_lib::yield_;
 
+/*
+理想结果：三个程序交替输出 ABC
+*/
+
 const WIDTH: usize = 10;
 const HEIGHT: usize = 5;
 

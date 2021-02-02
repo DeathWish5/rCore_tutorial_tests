@@ -6,6 +6,10 @@ extern crate user_lib;
 
 use user_lib::{get_time, yield_};
 
+/*
+理想结果：进程正确退出。
+*/
+
 #[no_mangle]
 fn main() -> i32 {
     let current_time = get_time();

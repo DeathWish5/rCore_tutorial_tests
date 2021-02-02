@@ -4,6 +4,10 @@
 
 extern crate user_lib;
 
+/*
+理想结果：触发 store 指令异常，并杀死程序。
+*/
+
 #[no_mangle]
 pub fn main() -> isize {
     unsafe {
