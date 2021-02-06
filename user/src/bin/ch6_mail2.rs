@@ -7,11 +7,10 @@ extern crate user_lib;
 use user_lib::{spawn, mail_read, mail_write, sleep, wait, exit};
 
 const BUF_LEN: usize = 256;
-const MAIL_NUM: usize = 256;
 
 #[no_mangle]
 fn main() -> i32 {
-    let pid = spawn("ch6_mail0");
+    let pid = spawn("ch6_mail20");
     println!("I am father");
     println!("father sleep 1s");
     sleep(1000 as usize);
@@ -20,7 +19,7 @@ fn main() -> i32 {
         assert_eq!(mail_write(pid as usize, &buffer), BUF_LEN as isize);
     }
     println!("father wirte 16 mails succeed");
-    let mut buffer = [16 as u8; BUF_LEN];
+    let buffer = [16 as u8; BUF_LEN];
     assert_eq!(mail_write(pid as usize, &buffer), -1);
     println!("father wirte 1 mail fail");
     println!("father sleep 2s");

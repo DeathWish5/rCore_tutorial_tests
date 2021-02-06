@@ -24,8 +24,9 @@ CH2_TESTS := ch2 ch2t
 CH3_TESTS_BASE := $(CH2_TESTS) ch3_0
 CH3_TESTS_SEP := ch3_1 ch3_2 ch3_3
 CH4_TESTS := ch2 ch3_0 ch4
-ch5_TESTS := $(CH4_TESTS) ch5
-ch6_TESTS := $(CH5_TESTS) ch6
+CH5_TESTS := $(CH4_TESTS) ch5
+CH6_TESTS := $(CH5_TESTS) ch6
+CH7_TESTS := $(CH6_TESTS) ch7
 
 ch2: binary
 	@rm -rf $(BUILD_DIR)
@@ -64,7 +65,14 @@ ch6: binary
 	@$(foreach t, $(CH6_TESTS), cp $(TARGET_DIR)/$(t)_*.bin $(BUILD_DIR)/bin/;)
 	@$(foreach t, $(CH6_TESTS), cp $(TARGET_DIR)/$(t)_*.elf $(BUILD_DIR)/elf/;)
 
-build: ch6
+ch7: binary
+	@rm -rf $(BUILD_DIR)
+	@mkdir -p $(BUILD_DIR)/bin/
+	@mkdir -p $(BUILD_DIR)/elf/
+	@$(foreach t, $(CH7_TESTS), cp $(TARGET_DIR)/$(t)_*.bin $(BUILD_DIR)/bin/;)
+	@$(foreach t, $(CH7_TESTS), cp $(TARGET_DIR)/$(t)_*.elf $(BUILD_DIR)/elf/;)
+	@cd ../easy-fs && cargo run
+build: ch7
 
 clean:
 	@cargo clean

@@ -55,8 +55,63 @@ bitflags! {
     }
 }
 
+#[repr(C)]
+#[derive(Debug)]
+pub struct TimeVal {
+    pub sec: usize,
+    pub usec: usize,
+}
+
+impl TimeVal {
+    pub fn new() -> Self {
+        TimeVal {
+            sec: 0,
+            usec: 0,
+        }
+    }
+}
+
+#[repr(C)]
+#[derive(Debug)]
+pub struct Stat {
+    /// ID of device containing file
+    pub dev: u64,
+    /// inode number
+    pub ino: u64,
+    /// file type and mode
+    pub mode: StatMode,
+    /// number of hard links
+    pub nlink: u32,
+    /// unused pad
+    pad: [u64; 7],
+}
+
+impl Stat {
+    pub fn new() -> Self {
+        Stat {
+            dev: 0,
+            ino: 0,
+            mode: StatMode::NULL,
+            nlink: 0,
+            pad: [0; 7],
+        }
+    }
+}
+
+bitflags! {
+    pub struct StatMode: u32 {
+        const NULL  = 0;
+        /// directory
+        const DIR   = 0o040000;
+        /// ordinary regular file
+        const FILE  = 0o100000;
+    }
+}
+
+const AT_FDCWD: isize = -100;
+
 pub fn open(path: &str, flags: OpenFlags) -> isize {
-    sys_open(path, flags.bits)
+    sys_openat(AT_FDCWD as usize, path, flags.bits, OpenFlags::RDWR.bits)
 }
 
 pub fn close(fd: usize) -> isize {
@@ -66,6 +121,13 @@ pub fn close(fd: usize) -> isize {
 pub fn read(fd: usize, buf: &mut [u8]) -> isize { sys_read(fd, buf) }
 
 pub fn write(fd: usize, buf: &[u8]) -> isize { sys_write(fd, buf) }
+
+
+pub fn link(old_path: &str, new_path: &str) -> isize { sys_linkat(AT_FDCWD as usize, old_path, AT_FDCWD as usize, new_path, 0) }
+
+pub fn unlink(path: &str) -> isize { sys_unlinkat(AT_FDCWD as usize, path, 0) }
+
+pub fn fstat(fd: usize, st: &Stat) -> isize { sys_fstat(fd, st) }
 
 pub fn mail_read(buf: &mut [u8]) -> isize { sys_mail_read(buf) }
 
@@ -80,7 +142,11 @@ pub fn yield_() -> isize {
 }
 
 pub fn get_time() -> isize {
-    sys_get_time()
+    let time = TimeVal::new();
+    match sys_get_time(&time, 0) {
+        0 => ((time.sec & 0xffff) * 1000 + time.usec / 1000) as isize,
+        _ => -1
+    }
 }
 
 pub fn getpid() -> isize {
@@ -98,32 +164,16 @@ pub fn exec(path: &str) -> isize {
 pub fn set_priority(prio: isize) -> isize { sys_set_priority(prio) }
 
 pub fn wait(exit_code: &mut i32) -> isize {
-    loop {
-        match sys_waitpid(-1, exit_code as *mut _) {
-            -2 => {
-                yield_();
-            }
-            // -1 or a real pid
-            exit_pid => return exit_pid,
-        }
-    }
+    sys_waitpid(-1, exit_code as *mut _)
 }
 
 pub fn waitpid(pid: usize, exit_code: &mut i32) -> isize {
-    loop {
-        match sys_waitpid(pid as isize, exit_code as *mut _) {
-            -2 => {
-                yield_();
-            }
-            // -1 or a real pid
-            exit_pid => return exit_pid,
-        }
-    }
+    sys_waitpid(pid as isize, exit_code as *mut _)
 }
 
 pub fn sleep(period_ms: usize) {
-    let start = sys_get_time();
-    while sys_get_time() < start + period_ms as isize {
+    let start = get_time();
+    while get_time() < start + period_ms as isize {
         sys_yield();
     }
 }
