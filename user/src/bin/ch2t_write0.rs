@@ -8,9 +8,8 @@ extern crate alloc;
 use user_lib::{write, STDOUT};
 use alloc::slice;
 
-/*
-理想结果：程序不报错，正确退出。
-*/
+/// 正确输出： (推荐内核输出非法 write 信息)
+/// Test write0 OK!
 
 const STACK_SIZE: usize = 0x1000;
 
@@ -33,6 +32,6 @@ pub unsafe fn main() -> i32 {
     assert_eq!(write(STDOUT, slice::from_raw_parts((top - 5) as *const _, 10)), -1);
     assert_eq!(write(STDOUT, slice::from_raw_parts((bottom - 5) as *const _, 10)), -1);
     // TODO: test string located in .data section
-    println!("Test write2 OK!");
+    println!("Test write0 OK!");
     0
 }

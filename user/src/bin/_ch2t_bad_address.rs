@@ -4,9 +4,7 @@
 
 extern crate user_lib;
 
-/*
-理想结果：触发 store 指令异常，并杀死程序。
-*/
+/// 由于 rustsbi 的问题，该程序无法正确退出
 
 #[no_mangle]
 pub fn main() -> isize {

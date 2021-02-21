@@ -20,6 +20,13 @@ binary: elf
 		$(CP) $(elf) $(patsubst $(TARGET_DIR)/%, $(TARGET_DIR)/%.elf, $(elf));	\
 		$(OBJDUMP) $(elf) -d > $(patsubst $(TARGET_DIR)/%, $(TARGET_DIR)/%.asm, $(elf));)
 
+#ch3-binary:
+#	@python3 ch3-build.py
+#	@$(foreach elf, $(ELFS), \
+#    		$(OBJCOPY) $(elf) --strip-all -O binary $(patsubst $(TARGET_DIR)/%, $(TARGET_DIR)/%.bin, $(elf)); \
+#    		$(CP) $(elf) $(patsubst $(TARGET_DIR)/%, $(TARGET_DIR)/%.elf, $(elf));	\
+#    		$(OBJDUMP) $(elf) -d > $(patsubst $(TARGET_DIR)/%, $(TARGET_DIR)/%.asm, $(elf));)
+
 CH2_TESTS := ch2 ch2t
 CH3_TESTS_BASE := $(CH2_TESTS) ch3_0
 CH3_TESTS_SEP := ch3_1 ch3_2 ch3_3
@@ -72,6 +79,7 @@ ch7: binary
 	@$(foreach t, $(CH7_TESTS), cp $(TARGET_DIR)/$(t)_*.bin $(BUILD_DIR)/bin/;)
 	@$(foreach t, $(CH7_TESTS), cp $(TARGET_DIR)/$(t)_*.elf $(BUILD_DIR)/elf/;)
 	@cd ../easy-fs && cargo run
+
 build: ch7
 
 clean:
