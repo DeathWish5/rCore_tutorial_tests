@@ -49,7 +49,16 @@ fn syscall5(id: usize, args: [usize; 5]) -> isize {
 }
 
 pub fn sys_openat(dirfd: usize, path: &str, flags: u32, mode: u32) -> isize {
-    syscall5(SYSCALL_OPENAT, [dirfd, path.as_ptr() as usize, flags as usize, mode as usize, 0])
+    syscall5(
+        SYSCALL_OPENAT,
+        [
+            dirfd,
+            path.as_ptr() as usize,
+            flags as usize,
+            mode as usize,
+            0,
+        ],
+    )
 }
 
 pub fn sys_close(fd: usize) -> isize {
@@ -67,10 +76,22 @@ pub fn sys_write(fd: usize, buffer: &[u8]) -> isize {
     syscall(SYSCALL_WRITE, [fd, buffer.as_ptr() as usize, buffer.len()])
 }
 
-pub fn sys_linkat(old_dirfd: usize, old_path: &str, new_dirfd: usize, new_path: &str, flags: usize) -> isize {
+pub fn sys_linkat(
+    old_dirfd: usize,
+    old_path: &str,
+    new_dirfd: usize,
+    new_path: &str,
+    flags: usize,
+) -> isize {
     syscall5(
         SYSCALL_LINKAT,
-        [old_dirfd, old_path.as_ptr() as usize, new_dirfd, new_path.as_ptr() as usize, flags]
+        [
+            old_dirfd,
+            old_path.as_ptr() as usize,
+            new_dirfd,
+            new_path.as_ptr() as usize,
+            flags,
+        ],
     )
 }
 
@@ -83,11 +104,17 @@ pub fn sys_fstat(fd: usize, st: &Stat) -> isize {
 }
 
 pub fn sys_mail_read(buffer: &mut [u8]) -> isize {
-    syscall(SYSCALL_MAIL_READ, [buffer.as_ptr() as usize, buffer.len(), 0])
+    syscall(
+        SYSCALL_MAIL_READ,
+        [buffer.as_ptr() as usize, buffer.len(), 0],
+    )
 }
 
 pub fn sys_mail_write(pid: usize, buffer: &[u8]) -> isize {
-    syscall(SYSCALL_MAIL_WRITE, [pid, buffer.as_ptr() as usize, buffer.len()])
+    syscall(
+        SYSCALL_MAIL_WRITE,
+        [pid, buffer.as_ptr() as usize, buffer.len()],
+    )
 }
 
 pub fn sys_exit(exit_code: i32) -> ! {

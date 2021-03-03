@@ -64,10 +64,7 @@ pub struct TimeVal {
 
 impl TimeVal {
     pub fn new() -> Self {
-        TimeVal {
-            sec: 0,
-            usec: 0,
-        }
+        TimeVal { sec: 0, usec: 0 }
     }
 }
 
@@ -118,20 +115,33 @@ pub fn close(fd: usize) -> isize {
     sys_close(fd)
 }
 
-pub fn read(fd: usize, buf: &mut [u8]) -> isize { sys_read(fd, buf) }
+pub fn read(fd: usize, buf: &mut [u8]) -> isize {
+    sys_read(fd, buf)
+}
 
-pub fn write(fd: usize, buf: &[u8]) -> isize { sys_write(fd, buf) }
+pub fn write(fd: usize, buf: &[u8]) -> isize {
+    sys_write(fd, buf)
+}
 
+pub fn link(old_path: &str, new_path: &str) -> isize {
+    sys_linkat(AT_FDCWD as usize, old_path, AT_FDCWD as usize, new_path, 0)
+}
 
-pub fn link(old_path: &str, new_path: &str) -> isize { sys_linkat(AT_FDCWD as usize, old_path, AT_FDCWD as usize, new_path, 0) }
+pub fn unlink(path: &str) -> isize {
+    sys_unlinkat(AT_FDCWD as usize, path, 0)
+}
 
-pub fn unlink(path: &str) -> isize { sys_unlinkat(AT_FDCWD as usize, path, 0) }
+pub fn fstat(fd: usize, st: &Stat) -> isize {
+    sys_fstat(fd, st)
+}
 
-pub fn fstat(fd: usize, st: &Stat) -> isize { sys_fstat(fd, st) }
+pub fn mail_read(buf: &mut [u8]) -> isize {
+    sys_mail_read(buf)
+}
 
-pub fn mail_read(buf: &mut [u8]) -> isize { sys_mail_read(buf) }
-
-pub fn mail_write(pid: usize, buf: &[u8]) -> isize { sys_mail_write(pid, buf) }
+pub fn mail_write(pid: usize, buf: &[u8]) -> isize {
+    sys_mail_write(pid, buf)
+}
 
 pub fn exit(exit_code: i32) -> ! {
     sys_exit(exit_code);
@@ -145,7 +155,7 @@ pub fn get_time() -> isize {
     let time = TimeVal::new();
     match sys_get_time(&time, 0) {
         0 => ((time.sec & 0xffff) * 1000 + time.usec / 1000) as isize,
-        _ => -1
+        _ => -1,
     }
 }
 
@@ -161,7 +171,9 @@ pub fn exec(path: &str) -> isize {
     sys_exec(path)
 }
 
-pub fn set_priority(prio: isize) -> isize { sys_set_priority(prio) }
+pub fn set_priority(prio: isize) -> isize {
+    sys_set_priority(prio)
+}
 
 pub fn wait(exit_code: &mut i32) -> isize {
     sys_waitpid(-1, exit_code as *mut _)
@@ -189,4 +201,3 @@ pub fn munmap(start: usize, len: usize) -> isize {
 pub fn spawn(path: &str) -> isize {
     sys_spawn(path)
 }
-

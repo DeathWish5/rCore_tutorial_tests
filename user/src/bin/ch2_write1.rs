@@ -14,6 +14,7 @@ const DATA_STRING:&'static str = "string from data section\n";
 
 #[no_mangle]
 pub fn main() -> i32 {
+    assert_eq!(write(1234, DATA_STRING.as_bytes()), -1);
     assert_eq!(write(STDOUT, DATA_STRING.as_bytes()), DATA_STRING.len() as isize);
     assert_eq!(write(STDOUT, &DATA_STRING.as_bytes()[..5]), 5);
     let stack_string = "string from stack section\n";
