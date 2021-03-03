@@ -13,7 +13,6 @@ use user_lib::{
     unlink,
     OpenFlags,
     Stat,
-    StatMode,
 };
 
 #[no_mangle]

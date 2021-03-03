@@ -13,7 +13,7 @@ fn main() -> i32 {
     let prot: usize = 3;
     assert_eq!(len as isize, mmap(start, len, prot));
     assert_eq!(mmap(start + len, len * 2, prot), (len * 2) as isize);
-    munmap(start, len);
+    assert_eq!(munmap(start, len), len as isize);
     assert_eq!(mmap(start - len, len + 1, prot), (len * 2) as isize);
     for i in (start - len)..(start + len * 3) {
         let addr: *mut u8 = i as *mut u8;
@@ -27,6 +27,6 @@ fn main() -> i32 {
             assert_eq!(*addr, i as u8);
         }
     }
-    println!("Test 04_5 OK!");
+    println!("Test 04_5 ummap OK!");
     0
 }

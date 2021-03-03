@@ -4,18 +4,16 @@
 #[macro_use]
 extern crate user_lib;
 
-use user_lib::mmap;
+use user_lib::{mmap, munmap};
 
 #[no_mangle]
 fn main() -> i32 {
     let start: usize = 0x10000000;
     let len: usize = 4096;
-    let prot: usize = 1;
+    let prot: usize = 3;
     assert_eq!(len as isize, mmap(start, len, prot));
-    let addr: *mut u8 = start as *mut u8;
-    unsafe {
-        *addr = start as u8;
-    }
-    println!("Should cause error, Test 04_2 fail!");
+    assert_eq!(munmap(start, len + 1), -1);
+    assert_eq!(munmap(start + 1, len - 1), -1);
+    println!("Test 04_6 ummap2 OK!");
     0
 }

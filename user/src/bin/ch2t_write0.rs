@@ -4,9 +4,9 @@
 
 #[macro_use]
 extern crate user_lib;
-extern crate alloc;
+extern crate core;
 use user_lib::{write, STDOUT};
-use alloc::slice;
+use core::slice;
 
 /// 正确输出： (推荐内核输出非法 write 信息)
 /// Test write0 OK!

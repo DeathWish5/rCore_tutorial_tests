@@ -9,6 +9,10 @@ use user_lib::yield_;
 const WIDTH: usize = 10;
 const HEIGHT: usize = 5;
 
+/*
+理想结果：三个程序交替输出 ABC
+*/
+
 #[no_mangle]
 fn main() -> i32 {
     for i in 0..HEIGHT {

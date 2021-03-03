@@ -5,9 +5,8 @@
 extern crate user_lib;
 use user_lib::{set_priority};
 
-/*
-理想结果：进程正确退出。
-*/
+/// 正确输出：（无报错信息）
+/// TEST set_priority OK!
 
 #[no_mangle]
 pub fn main() -> i32 {

@@ -74,7 +74,6 @@ ch7: binary pre
 	@mkdir -p $(BUILD_DIR)/elf/
 	@$(foreach t, $(CH7_TESTS), cp $(TARGET_DIR)/$(t)_*.bin $(BUILD_DIR)/bin/;)
 	@$(foreach t, $(CH7_TESTS), cp $(TARGET_DIR)/$(t)_*.elf $(BUILD_DIR)/elf/;)
-	@cd ../easy-fs && cargo run
 
 build: ch7
 

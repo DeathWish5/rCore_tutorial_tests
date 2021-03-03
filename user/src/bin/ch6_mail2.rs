@@ -53,6 +53,6 @@ fn main() -> i32 {
     let mut xstate: i32 = -100;
     assert!(wait(&mut xstate) > 0);
     assert_eq!(xstate, 0);
-    println!("mail test OK!");
+    println!("mail2 test OK!");
     0
 }
