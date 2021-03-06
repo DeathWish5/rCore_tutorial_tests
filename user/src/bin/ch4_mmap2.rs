@@ -15,8 +15,8 @@ fn main() -> i32 {
     let addr: *mut u8 = start as *mut u8;
     unsafe {
         // *addr = start as u8; // can't write, R == 0 && W == 1 is illegal in riscv
-        println!("If core dumped, Test 04_3 OK!");
         assert!(*addr != 0);
     }
+    println!("Should cause error, Test 04_2 fail!");
     0
 }

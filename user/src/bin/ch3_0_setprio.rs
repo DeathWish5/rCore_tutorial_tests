@@ -3,7 +3,7 @@
 
 #[macro_use]
 extern crate user_lib;
-use user_lib::{set_priority};
+use user_lib::set_priority;
 
 /// 正确输出：（无报错信息）
 /// TEST set_priority OK!

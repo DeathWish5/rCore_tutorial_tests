@@ -12,7 +12,11 @@ pub fn main() -> i32 {
     println!("current time_msec = {}", start);
     sleep(100);
     let end = get_time();
-    println!("time_msec = {} after sleeping 100 ticks, delta = {}ms!", end, end - start);
+    println!(
+        "time_msec = {} after sleeping 100 ticks, delta = {}ms!",
+        end,
+        end - start
+    );
     println!("TEST sleep1 passed!");
     0
 }
