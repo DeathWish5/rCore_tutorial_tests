@@ -1,4 +1,4 @@
 /user/target
 /user/build
 /user/Cargo.lock
-/.idea
+.idea

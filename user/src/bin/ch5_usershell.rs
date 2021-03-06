@@ -12,8 +12,8 @@ const DL: u8 = 0x7fu8;
 const BS: u8 = 0x08u8;
 
 use alloc::string::String;
-use user_lib::{spawn, waitpid, yield_};
 use user_lib::console::getchar;
+use user_lib::{spawn, waitpid, yield_};
 
 #[no_mangle]
 pub fn main() -> i32 {

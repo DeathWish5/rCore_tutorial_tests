@@ -8,7 +8,7 @@ extern crate core;
 use core::slice;
 use user_lib::{write, STDOUT};
 
-/// 正确输出： (调试时推荐内核输出非法 write 信息)
+/// 正确输出：
 /// Test write0 OK!
 
 const STACK_SIZE: usize = 0x1000;
