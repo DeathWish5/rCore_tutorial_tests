@@ -19,7 +19,7 @@ fn main() -> i32 {
     assert_eq!(mail_read(&mut buf), 27);
     assert_eq!(buf[..27], buffer0);
     assert_eq!(mail_read(&mut buf[..27]), 27);
-    assert_eq!(buf, buffer1[..27]);
+    assert_eq!(buf[..27], buffer1[..27]);
     println!("mail0 test OK!");
     0
 }

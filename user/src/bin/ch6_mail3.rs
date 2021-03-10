@@ -5,8 +5,8 @@ extern crate core;
 #[macro_use]
 extern crate user_lib;
 
-use user_lib::{getpid, mail_read, mail_write};
 use core::slice;
+use user_lib::{getpid, mail_read, mail_write};
 
 const BUF_LEN: usize = 256;
 const MAIL_MAX: usize = 16;

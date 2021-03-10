@@ -4,7 +4,7 @@
 #[macro_use]
 extern crate user_lib;
 
-use user_lib::{fork, mail_read, mail_write, sleep, wait, exit};
+use user_lib::{exit, fork, mail_read, mail_write, sleep, wait};
 
 const BUF_LEN: usize = 256;
 
