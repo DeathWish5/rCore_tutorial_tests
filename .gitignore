@@ -1,6 +1,6 @@
-/user/target
-/user/build
-/user/Cargo.lock
-/user/.idea
+user/target
+user/build
+user/Cargo.lock
+user/.idea
 .idea
 
