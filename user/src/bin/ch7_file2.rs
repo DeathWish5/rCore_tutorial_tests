@@ -7,7 +7,7 @@ use user_lib::{close, fstat, link, open, read, unlink, write, OpenFlags, Stat};
 
 #[no_mangle]
 pub fn main() -> i32 {
-    let test_str = "Hello, world!";
+    let Test_str = "Hello, world!";
     let fname = "fname2\0";
     let (lname0, lname1, lname2) = ("linkname0\0", "linkname1\0", "linkname1\0");
     let fd = open(fname, OpenFlags::CREATE | OpenFlags::WRONLY) as usize;
@@ -19,7 +19,7 @@ pub fn main() -> i32 {
     link(fname, lname2);
     fstat(fd, &stat);
     assert_eq!(stat.nlink, 4);
-    write(fd, test_str.as_bytes());
+    write(fd, Test_str.as_bytes());
     close(fd);
 
     unlink(fname);
@@ -27,7 +27,7 @@ pub fn main() -> i32 {
     let stat2 = Stat::new();
     let mut buf = [0u8; 100];
     let read_len = read(fd, &mut buf) as usize;
-    assert_eq!(test_str, core::str::from_utf8(&buf[..read_len]).unwrap(),);
+    assert_eq!(Test_str, core::str::from_utf8(&buf[..read_len]).unwrap(),);
     fstat(fd, &stat2);
     assert_eq!(stat2.dev, stat.dev);
     assert_eq!(stat2.ino, stat.ino);
@@ -37,6 +37,6 @@ pub fn main() -> i32 {
     fstat(fd, &stat2);
     assert_eq!(stat2.nlink, 1);
     close(fd);
-    println!("TEST link OK!");
+    println!("Test link OK!");
     0
 }

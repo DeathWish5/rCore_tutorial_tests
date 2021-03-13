@@ -17,6 +17,6 @@ pub fn main() -> i32 {
     assert_eq!(stat.mode, StatMode::FILE);
     assert_eq!(stat.nlink, 1);
     close(fd);
-    println!("TEST fstat OK!");
+    println!("Test fstat OK!");
     0
 }

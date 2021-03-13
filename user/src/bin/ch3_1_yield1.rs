@@ -16,7 +16,9 @@ const HEIGHT: usize = 5;
 #[no_mangle]
 fn main() -> i32 {
     for i in 0..HEIGHT {
-        for _ in 0..WIDTH { print!("B"); }
+        for _ in 0..WIDTH {
+            print!("B");
+        }
         println!(" [{}/{}]", i + 1, HEIGHT);
         yield_();
     }

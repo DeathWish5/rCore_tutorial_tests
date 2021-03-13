@@ -6,7 +6,7 @@ extern crate user_lib;
 use user_lib::set_priority;
 
 /// 正确输出：（无报错信息）
-/// TEST set_priority OK!
+/// Test set_priority OK!
 
 #[no_mangle]
 pub fn main() -> i32 {
@@ -15,6 +15,6 @@ pub fn main() -> i32 {
     assert_eq!(set_priority(0), -1);
     assert_eq!(set_priority(1), -1);
     assert_eq!(set_priority(-10), -1);
-    println!("TEST set_priority OK!");
+    println!("Test set_priority OK!");
     0
 }

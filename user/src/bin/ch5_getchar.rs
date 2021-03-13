@@ -20,6 +20,6 @@ pub fn main() -> i32 {
     for idx in 0..N {
         print!("{}", line[idx]);
     }
-    println!("\n TEST getchar passed!");
+    println!("\n Test getchar passed!");
     0
 }

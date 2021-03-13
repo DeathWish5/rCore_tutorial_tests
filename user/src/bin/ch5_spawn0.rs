@@ -20,6 +20,6 @@ pub fn main() -> i32 {
         assert_eq!(exit_code, 0, "error exit ocde {}", exit_code);
     }
     assert!(wait(&mut exit_code) <= 0, "wait got too many");
-    println!("TEST spawn0 OK!");
+    println!("Test spawn0 OK!");
     0
 }
