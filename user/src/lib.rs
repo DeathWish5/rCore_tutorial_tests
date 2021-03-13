@@ -176,11 +176,29 @@ pub fn set_priority(prio: isize) -> isize {
 }
 
 pub fn wait(exit_code: &mut i32) -> isize {
-    sys_waitpid(-1, exit_code as *mut _)
+    loop {
+        match sys_waitpid(-1, exit_code as *mut _) {
+            -2 => {
+                sys_yield();
+            }
+            n => {
+                return n;
+            }
+        }
+    }
 }
 
 pub fn waitpid(pid: usize, exit_code: &mut i32) -> isize {
-    sys_waitpid(pid as isize, exit_code as *mut _)
+    loop {
+        match sys_waitpid(pid as isize, exit_code as *mut _) {
+            -2 => {
+                sys_yield();
+            }
+            n => {
+                return n;
+            }
+        }
+    }
 }
 
 pub fn sleep(period_ms: usize) {

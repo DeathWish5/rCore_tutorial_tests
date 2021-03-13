@@ -43,7 +43,10 @@ pub fn main() -> i32 {
         let mut xstate: i32 = Default::default();
         let wait_pid = waitpid(pid as usize, &mut xstate);
         assert_eq!(pid, wait_pid);
-        println!("\x1b[32mUsertests: Test {} in Process {} exited with code {}\x1b[0m", test, pid, xstate);
+        println!(
+            "\x1b[32mUsertests: Test {} in Process {} exited with code {}\x1b[0m",
+            test, pid, xstate
+        );
     }
     println!("ch6 Usertests passed!");
     0
