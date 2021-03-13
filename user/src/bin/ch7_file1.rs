@@ -3,14 +3,7 @@
 
 #[macro_use]
 extern crate user_lib;
-use user_lib::{
-    open,
-    close,
-    fstat,
-    OpenFlags,
-    Stat,
-    StatMode,
-};
+use user_lib::{close, fstat, open, OpenFlags, Stat, StatMode};
 
 #[no_mangle]
 pub fn main() -> i32 {

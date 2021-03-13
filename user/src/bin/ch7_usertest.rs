@@ -31,9 +31,9 @@ static TESTS: &[&str] = &[
     "ch6_mail1\0",
     "ch6_mail2\0",
     "ch6_mail3\0",
-    "ch7_mail0\0",
-    "ch7_mail1\0",
-    "ch7_mail2\0",
+    "ch7_file0\0",
+    "ch7_file1\0",
+    "ch7_file2\0",
 ];
 
 use user_lib::{spawn, waitpid};
@@ -46,7 +46,10 @@ pub fn main() -> i32 {
         let mut xstate: i32 = Default::default();
         let wait_pid = waitpid(pid as usize, &mut xstate);
         assert_eq!(pid, wait_pid);
-        println!("\x1b[32mUsertests: Test {} in Process {} exited with code {}\x1b[0m", test, pid, xstate);
+        println!(
+            "\x1b[32mUsertests: Test {} in Process {} exited with code {}\x1b[0m",
+            test, pid, xstate
+        );
     }
     println!("ch7 Usertests passed!");
     0

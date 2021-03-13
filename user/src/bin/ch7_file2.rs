@@ -3,17 +3,7 @@
 
 #[macro_use]
 extern crate user_lib;
-use user_lib::{
-    open,
-    close,
-    read,
-    write,
-    fstat,
-    link,
-    unlink,
-    OpenFlags,
-    Stat,
-};
+use user_lib::{close, fstat, link, open, read, unlink, write, OpenFlags, Stat};
 
 #[no_mangle]
 pub fn main() -> i32 {
@@ -33,14 +23,11 @@ pub fn main() -> i32 {
     close(fd);
 
     unlink(fname);
-    let fd = open(lname0, OpenFlags::WRONLY) as usize;
+    let fd = open(lname0, OpenFlags::RDONLY) as usize;
     let stat2 = Stat::new();
     let mut buf = [0u8; 100];
     let read_len = read(fd, &mut buf) as usize;
-    assert_eq!(
-        test_str,
-        core::str::from_utf8(&buf[..read_len]).unwrap(),
-    );
+    assert_eq!(test_str, core::str::from_utf8(&buf[..read_len]).unwrap(),);
     fstat(fd, &stat2);
     assert_eq!(stat2.dev, stat.dev);
     assert_eq!(stat2.ino, stat.ino);
