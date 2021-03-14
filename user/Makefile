@@ -14,6 +14,7 @@ CH_TESTS :=
 CHAPTER ?= 
 
 CH2_TESTS := ch2 ch2t
+CH2_TESTS_BAD := _ch2 _ch2t
 CH3_TESTS_BASE := $(CH2_TESTS) ch3_0 ch3t
 CH4_TESTS := ch2 ch3_0 ch4
 CH5_TESTS := $(CH4_TESTS) ch5
@@ -22,6 +23,9 @@ CH7_TESTS := $(CH6_TESTS) ch7
 
 ifeq ($(CHAPTER), 2)
 	CH_TESTS := $(CH2_TESTS)
+	BUILD_SCRIPTS := ch2-build.py
+else ifeq ($(CHAPTER), 2_bad)
+	CH_TESTS := $(CH2_TESTS_BAD)
 	BUILD_SCRIPTS := ch2-build.py
 else ifeq ($(CHAPTER), 3_0)
 	CH_TESTS := $(CH3_TESTS_BASE)
