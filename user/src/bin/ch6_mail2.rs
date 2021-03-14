@@ -46,7 +46,7 @@ fn main() -> i32 {
     assert_eq!(mail_write(pid as usize, &buffer), -1);
     println!("father wirte 1 mail fail");
     println!("father sleep 2s");
-    sleep(2000 as usize);
+    sleep(1500 as usize);
     assert_eq!(mail_write(pid as usize, &buffer), BUF_LEN as isize);
     println!("father wirte 1 mail succeed");
 

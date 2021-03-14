@@ -10,11 +10,12 @@ use user_lib::{getpid, mail_read, mail_write};
 
 const BUF_LEN: usize = 256;
 const MAIL_MAX: usize = 16;
+const BAD_ADDRESS: usize = 0x90000000;
 
 #[no_mangle]
 fn main() -> i32 {
     let pid = getpid();
-    let null = unsafe { slice::from_raw_parts(0x0 as *const _, 10) };
+    let null = unsafe { slice::from_raw_parts(BAD_ADDRESS as *const _, 10) };
     assert_eq!(mail_write(pid as usize, &null), -1);
     let mut empty = ['a' as u8; 0];
     assert_eq!(mail_write(pid as usize, &empty), 0);
