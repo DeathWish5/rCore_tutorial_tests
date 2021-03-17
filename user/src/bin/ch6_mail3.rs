@@ -12,6 +12,8 @@ const BUF_LEN: usize = 256;
 const MAIL_MAX: usize = 16;
 const BAD_ADDRESS: usize = 0x90000000;
 
+/// 邮箱错误参数测试，输出 mail3 test OK! 就算正确。
+
 #[no_mangle]
 fn main() -> i32 {
     let pid = getpid();

@@ -4,6 +4,8 @@
 #[macro_use]
 extern crate user_lib;
 
+/// 辅助测例，运行所有其他测例。
+
 static TESTS: &[&str] = &[
     "ch2_hello_world\0",
     "ch2_power\0",

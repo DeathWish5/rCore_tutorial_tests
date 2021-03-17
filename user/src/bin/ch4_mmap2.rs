@@ -6,6 +6,10 @@ extern crate user_lib;
 
 use user_lib::mmap;
 
+/*
+理想结果：程序触发访存异常，被杀死。不输出 error 就算过。
+*/
+
 #[no_mangle]
 fn main() -> i32 {
     let start: usize = 0x10000000;

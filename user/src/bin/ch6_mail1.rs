@@ -9,6 +9,8 @@ use user_lib::{getpid, mail_read, mail_write};
 const BUF_LEN: usize = 256;
 const MAIL_MAX: usize = 16;
 
+/// 测试邮箱容量，输出 mail1 test OK! 就算正确。
+
 #[no_mangle]
 fn main() -> i32 {
     let pid = getpid();

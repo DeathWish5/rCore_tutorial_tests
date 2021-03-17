@@ -8,6 +8,8 @@ use user_lib::{exit, fork, mail_read, mail_write, sleep, wait};
 
 const BUF_LEN: usize = 256;
 
+// 双进程邮箱测试，最终输出 mail2 test OK! 就算正确。
+
 #[no_mangle]
 fn main() -> i32 {
     let pid = fork();
@@ -45,7 +47,7 @@ fn main() -> i32 {
     let buffer = [16 as u8; BUF_LEN];
     assert_eq!(mail_write(pid as usize, &buffer), -1);
     println!("father wirte 1 mail fail");
-    println!("father sleep 2s");
+    println!("father sleep 1.5s");
     sleep(1500 as usize);
     assert_eq!(mail_write(pid as usize, &buffer), BUF_LEN as isize);
     println!("father wirte 1 mail succeed");

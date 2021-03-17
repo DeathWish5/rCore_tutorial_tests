@@ -5,6 +5,8 @@
 extern crate user_lib;
 use user_lib::{close, fstat, link, open, read, unlink, write, OpenFlags, Stat};
 
+/// 测试 link/unlink，输出　Test link OK! 就算正确。
+
 #[no_mangle]
 pub fn main() -> i32 {
     let test_str = "Hello, world!";

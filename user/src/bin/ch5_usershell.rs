@@ -15,6 +15,8 @@ use alloc::string::String;
 use user_lib::console::getchar;
 use user_lib::{spawn, waitpid, yield_};
 
+/// 不是测例，方便本地测试
+
 #[no_mangle]
 pub fn main() -> i32 {
     println!("Rust user shell");

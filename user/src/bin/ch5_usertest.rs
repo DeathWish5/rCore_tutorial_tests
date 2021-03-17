@@ -24,6 +24,8 @@ static TESTS: &[&str] = &[
 
 use user_lib::{spawn, waitpid};
 
+/// 辅助测例，运行所有其他测例。
+
 #[no_mangle]
 pub fn main() -> i32 {
     for test in TESTS {

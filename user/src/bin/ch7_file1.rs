@@ -5,6 +5,8 @@
 extern crate user_lib;
 use user_lib::{close, fstat, open, OpenFlags, Stat, StatMode};
 
+/// 测试 fstat，输出　Test fstat OK! 就算正确。
+
 #[no_mangle]
 pub fn main() -> i32 {
     let fname = "fname1\0";

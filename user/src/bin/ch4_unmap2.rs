@@ -6,6 +6,10 @@ extern crate user_lib;
 
 use user_lib::{mmap, munmap};
 
+/*
+理想结果：输出 Test 04_6 ummap2 OK!
+*/
+
 #[no_mangle]
 fn main() -> i32 {
     let start: usize = 0x10000000;

@@ -8,6 +8,8 @@ use user_lib::{getpid, mail_read, mail_write};
 
 const BUF_LEN: usize = 256;
 
+/// 测试邮箱基本功能，输出　mail0 test OK! 就算正确。
+
 #[no_mangle]
 fn main() -> i32 {
     let pid = getpid();

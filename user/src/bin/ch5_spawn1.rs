@@ -6,6 +6,13 @@ extern crate user_lib;
 
 use user_lib::{spawn, wait, waitpid};
 
+/// 程序行为：先后产生 3 个有特定返回值的程序，检查 waitpid 能够获取正确返回值。
+
+/// 理想输出：
+/// new child i
+/// Test wait OK!
+/// Test waitpid OK!
+
 #[no_mangle]
 pub fn main() -> i32 {
     let cpid = spawn("ch5_exit0\0");
