@@ -11,7 +11,7 @@ use user_lib::{close, fstat, link, open, read, unlink, write, OpenFlags, Stat};
 pub fn main() -> i32 {
     let test_str = "Hello, world!";
     let fname = "fname2\0";
-    let (lname0, lname1, lname2) = ("linkname0\0", "linkname1\0", "linkname1\0");
+    let (lname0, lname1, lname2) = ("linkname0\0", "linkname1\0", "linkname2\0");
     let fd = open(fname, OpenFlags::CREATE | OpenFlags::WRONLY) as usize;
     link(fname, lname0);
     let stat = Stat::new();
