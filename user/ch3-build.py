@@ -1,4 +1,8 @@
 import os
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("CHAPTER", metavar="CHAPTER", type=str)
 
 def set_base_address(old, new):
     linker = 'src/linker.ld'
@@ -22,6 +26,7 @@ def build(apps, base_address):
     set_base_address(address, base_address)
 
 if __name__ == '__main__':
+    args = parser.parse_args()
     origin_base_address = 0x0
     target_base_address = 0x80400000
     set_base_address(origin_base_address, target_base_address)
@@ -38,9 +43,14 @@ if __name__ == '__main__':
             stride.append(app)
         else:
             others.append(app)
-    build(base, target_base_address)
-    build(yield_, target_base_address)
-    build(stride, target_base_address)
-    build(others, target_base_address)
+
+    if args.CHAPTER == "3_0":
+        build(base, target_base_address)
+    elif args.CHAPTER == "3_1":
+        build(yield_, target_base_address)
+    elif args.CHAPTER == "3_2":
+        build(stride, target_base_address)
+    else:
+        build(others, target_base_address)
     set_base_address(target_base_address, origin_base_address)
 

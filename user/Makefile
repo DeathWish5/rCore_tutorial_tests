@@ -3,8 +3,6 @@ MODE := release
 APP_DIR := src/bin
 TARGET_DIR := target/$(TARGET)/$(MODE)
 BUILD_DIR := build
-APPS := $(wildcard $(APP_DIR)/*.rs)
-ELFS := $(patsubst $(APP_DIR)/%.rs, $(TARGET_DIR)/%, $(APPS))
 OBJDUMP := rust-objdump --arch-name=riscv64
 OBJCOPY := rust-objcopy --binary-architecture=riscv64
 CP := cp
@@ -46,8 +44,11 @@ else ifeq ($(CHAPTER), 7)
 	CH_TESTS := $(CH7_TESTS)
 endif
 
+APPS := $(foreach c, $(CH_TESTS), $(wildcard $(APP_DIR)/$(c)*.rs))
+ELFS := $(patsubst $(APP_DIR)/%.rs, $(TARGET_DIR)/%, $(APPS))
+
 binary: $(APPS)
-	@$(PY) $(BUILD_SCRIPTS)
+	@$(PY) $(BUILD_SCRIPTS) $(CHAPTER)
 	@$(foreach elf, $(ELFS), \
 		$(OBJCOPY) $(elf) --strip-all -O binary $(patsubst $(TARGET_DIR)/%, $(TARGET_DIR)/%.bin, $(elf)); \
 		$(CP) $(elf) $(patsubst $(TARGET_DIR)/%, $(TARGET_DIR)/%.elf, $(elf));	\
