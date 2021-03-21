@@ -19,6 +19,8 @@ pub fn main() -> i32 {
     assert_eq!(stat.mode, StatMode::FILE);
     assert_eq!(stat.nlink, 1);
     close(fd);
+    // unlink(fname);
+    // It's recommended to rebuild the disk image. This program will not clean the file "fname1".
     println!("Test fstat OK!");
     0
 }

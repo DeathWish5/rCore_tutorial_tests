@@ -39,6 +39,8 @@ pub fn main() -> i32 {
     fstat(fd, &stat2);
     assert_eq!(stat2.nlink, 1);
     close(fd);
+    unlink(lname0);
+    // It's Ok if you don't delete the inode and data blocks.
     println!("Test link OK!");
     0
 }
