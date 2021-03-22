@@ -14,12 +14,16 @@ const HEIGHT: usize = 5;
 */
 
 #[no_mangle]
+#[no_mangle]
 fn main() -> i32 {
     for i in 0..HEIGHT {
-        for _ in 0..WIDTH {
-            print!("B");
-        }
-        println!(" [{}/{}]", i + 1, HEIGHT);
+        let buf = ['B' as u8; WIDTH];
+        println!(
+            "{} [{}/{}]",
+            core::str::from_utf8(&buf).unwrap(),
+            i + 1,
+            HEIGHT
+        );
         yield_();
     }
     println!("Test write B OK!");
