@@ -36,12 +36,20 @@ else ifeq ($(CHAPTER), 3_2)
 	BUILD_SCRIPTS := ch3-build.py
 else ifeq ($(CHAPTER), 4)
 	CH_TESTS := $(CH4_TESTS)
+else ifeq ($(CHAPTER), 4_only)
+	CH_TESTS := ch4
 else ifeq ($(CHAPTER), 5)
 	CH_TESTS := $(CH5_TESTS)
+else ifeq ($(CHAPTER), 5_only)
+	CH_TESTS := ch5
 else ifeq ($(CHAPTER), 6)
 	CH_TESTS := $(CH6_TESTS)
+else ifeq ($(CHAPTER), 6_only)
+	CH_TESTS := ch6
 else ifeq ($(CHAPTER), 7)
 	CH_TESTS := $(CH7_TESTS)
+else ifeq ($(CHAPTER), 7_only)
+	CH_TESTS := ch7
 endif
 
 APPS := $(foreach c, $(CH_TESTS), $(wildcard $(APP_DIR)/$(c)*.rs))
