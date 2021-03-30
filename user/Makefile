@@ -61,9 +61,9 @@ pre:
 	@mkdir -p $(BUILD_DIR)/asm/
 	
 all: binary pre
-	@$(foreach t, $(CH_TESTS), $(CP) $(TARGET_DIR)/$(t)_*.bin $(BUILD_DIR)/bin/;)
-	@$(foreach t, $(CH_TESTS), $(CP) $(TARGET_DIR)/$(t)_*.elf $(BUILD_DIR)/elf/;)
-	@$(foreach t, $(CH_TESTS), $(CP) $(TARGET_DIR)/$(t)_*.asm $(BUILD_DIR)/asm/;)
+	@$(foreach t, $(CH_TESTS), $(CP) $(TARGET_DIR)/$(t)*.bin $(BUILD_DIR)/bin/;)
+	@$(foreach t, $(CH_TESTS), $(CP) $(TARGET_DIR)/$(t)*.elf $(BUILD_DIR)/elf/;)
+	@$(foreach t, $(CH_TESTS), $(CP) $(TARGET_DIR)/$(t)*.asm $(BUILD_DIR)/asm/;)
 
 clean:
 	@cargo clean
