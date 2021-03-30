@@ -12,7 +12,9 @@
 
 lab5 默认加载程序的说明：
 
-由于测例中没有 initproc 程序，大家在测试的时候可以手动替换为 ch5_usershell / ch5_usertests 等。最终提交时保持加载 initproc 即可，CI 测试中会进行名称替换。
+由于测例中没有 initproc 程序，大家在测试的时候可以手动替换为 ch5_usershell / ch5_usertest 等。最终提交时保持加载 initproc 即可，CI 测试中会进行名称替换。
+
+> `Makefile` 中会根据章节将 `chx_usertest.elf` 复制到 `initproc.elf`。如有需要，可以自行删除并用其他程序作为 `initproc`
 
 可以在 `user/build/asm` 目录下查看汇编来确认加载地址。
 
