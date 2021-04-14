@@ -9,12 +9,13 @@ pub mod console;
 mod lang_items;
 mod syscall;
 
+extern crate alloc;
 extern crate core;
 #[macro_use]
 extern crate bitflags;
 
 use buddy_system_allocator::LockedHeap;
-pub use console::{STDIN, STDOUT};
+pub use console::{flush, STDIN, STDOUT};
 use syscall::*;
 
 const USER_HEAP_SIZE: usize = 16384;
@@ -112,6 +113,9 @@ pub fn open(path: &str, flags: OpenFlags) -> isize {
 }
 
 pub fn close(fd: usize) -> isize {
+    if fd == STDOUT {
+        console::flush();
+    }
     sys_close(fd)
 }
 
@@ -144,6 +148,7 @@ pub fn mail_write(pid: usize, buf: &[u8]) -> isize {
 }
 
 pub fn exit(exit_code: i32) -> ! {
+    console::flush();
     sys_exit(exit_code);
 }
 
