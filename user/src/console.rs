@@ -1,21 +1,51 @@
+use alloc::collections::vec_deque::VecDeque;
+use alloc::sync::Arc;
 use core::fmt::{self, Write};
+use spin::mutex::Mutex;
 
 pub const STDIN: usize = 0;
 pub const STDOUT: usize = 1;
 
+const CONSOLE_BUFFER_SIZE: usize = 256 * 10;
+
 use super::{read, write};
+use lazy_static::*;
 
-struct Stdout;
+struct ConsoleBuffer(VecDeque<u8>);
 
-impl Write for Stdout {
+lazy_static! {
+    static ref CONSOLE_BUFFER: Arc<Mutex<ConsoleBuffer>> = {
+        let buffer = VecDeque::<u8>::with_capacity(CONSOLE_BUFFER_SIZE);
+        Arc::new(Mutex::new(ConsoleBuffer(buffer)))
+    };
+}
+
+impl ConsoleBuffer {
+    fn flush(&mut self) -> isize {
+        let s: &[u8] = self.0.make_contiguous();
+        let ret = write(STDOUT, s);
+        self.0.clear();
+        ret
+    }
+}
+
+impl Write for ConsoleBuffer {
     fn write_str(&mut self, s: &str) -> fmt::Result {
-        write(STDOUT, s.as_bytes());
+        for c in s.as_bytes().iter() {
+            self.0.push_back(*c);
+            if *c == '\n' as u8 || self.0.len() == CONSOLE_BUFFER_SIZE {
+                if -1 == self.flush() {
+                    return Err(fmt::Error);
+                }
+            }
+        }
         Ok(())
     }
 }
 
 pub fn print(args: fmt::Arguments) {
-    Stdout.write_fmt(args).unwrap();
+    let mut buf = CONSOLE_BUFFER.lock();
+    buf.write_fmt(args).unwrap();
 }
 
 #[macro_export]
