@@ -19,6 +19,7 @@ CH4_TESTS := ch2_ ch3_0_ ch4_
 CH5_TESTS := $(CH4_TESTS) ch5_
 CH6_TESTS := $(CH5_TESTS) ch6_
 CH7_TESTS := $(CH6_TESTS) ch7_
+CH8_TESTS := $(CH7_TESTS) ch8_
 
 ifeq ($(CHAPTER), 2)
 	CH_TESTS := $(CH2_TESTS)
@@ -51,6 +52,10 @@ else ifeq ($(CHAPTER), 7)
 	CH_TESTS := $(CH7_TESTS)
 else ifeq ($(CHAPTER), 7_only)
 	CH_TESTS := ch7
+else ifeq ($(CHAPTER), 8)
+	CH_TESTS := $(CH8_TESTS)
+else ifeq ($(CHAPTER), 8_only)
+	CH_TESTS := ch8
 endif
 
 APPS := $(foreach c, $(CH_TESTS), $(wildcard $(APP_DIR)/$(c)*.rs))

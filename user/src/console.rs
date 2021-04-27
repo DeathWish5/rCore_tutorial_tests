@@ -67,3 +67,8 @@ pub fn getchar() -> u8 {
     read(STDIN, &mut c);
     c[0]
 }
+
+pub fn flush() {
+    let mut buf = CONSOLE_BUFFER.lock();
+    buf.flush();
+}
