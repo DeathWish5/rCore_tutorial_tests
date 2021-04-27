@@ -75,7 +75,9 @@ all: binary pre
 	@$(foreach t, $(CH_TESTS), $(CP) $(TARGET_DIR)/$(t)*.asm $(BUILD_DIR)/asm/;)
     ifneq ($(filter $(CHAPTER), $(HAVE_USERTESTS)),)
 		@cp $(BUILD_DIR)/elf/ch$(CHAPTER)_usertest.elf $(BUILD_DIR)/elf/initproc.elf
+		@cp $(TARGET_DIR)/ch$(CHAPTER)_usertest $(TARGET_DIR)/initproc
     endif
+
 
 clean:
 	@cargo clean
