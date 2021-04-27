@@ -1,5 +1,11 @@
 pub use super::*;
-use syscall::*;
+use alloc::sync::Arc;
+use lazy_static::lazy_static;
+use rand::distributions::{Distribution, Standard};
+use rand::rngs::SmallRng;
+use rand::{Fill, Rng, SeedableRng};
+use spin::mutex::Mutex;
+pub use syscall::*;
 
 pub const PAGE_SIZE: usize = 4096;
 pub const TRAMPOLINE: usize = usize::MAX - PAGE_SIZE + 1;
@@ -41,7 +47,37 @@ pub fn raw_sys_fstat(fd: usize, st: *const Stat) -> isize {
     syscall(SYSCALL_FSTAT, [fd, st as usize, 0])
 }
 
-pub fn hash(n: usize) -> usize {
-    let h: usize = 6364136223846793005usize * n + 1;
-    h >> 33
+pub fn raw_syscall(id: usize, args: [usize; 6]) -> isize {
+    syscall6(id, args)
+}
+
+lazy_static! {
+    static ref PRNG: Arc<Mutex<SmallRng>> = {
+        type Seed = [u8; 32];
+        Arc::new(Mutex::new(SmallRng::from_seed(Seed::default())))
+    };
+}
+
+pub fn xorshift64(mut x: usize) -> usize {
+    x = x ^ x << 13;
+    x = x ^ x >> 7;
+    x = x ^ x << 17;
+    x
+}
+
+pub fn rand<T>() -> T
+where
+    Standard: Distribution<T>,
+{
+    let mut rng = PRNG.lock();
+    rng.gen()
+}
+
+pub fn fill<T: Fill + ?Sized>(dest: &mut T) {
+    let mut rng = PRNG.lock();
+    rng.fill(dest)
+}
+
+pub fn hash(x: usize) -> usize {
+    xorshift64(x)
 }

@@ -23,8 +23,6 @@ const NUM: usize = 65536;
 
 fn main() {
     for idx in 0..NUM {
-        unsafe {
-            file_test0(idx);
-        }
+        file_test0(idx);
     }
 }

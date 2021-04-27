@@ -10,3 +10,4 @@ buddy_system_allocator = "0.6"
 bitflags = "1.2.1"
 lazy_static = { version = "1.4.0", features = ["spin_no_std"] }
 spin = "0.9"
+rand = { version = "0.8", default-features = false, features = ["alloc", "small_rng"] }
