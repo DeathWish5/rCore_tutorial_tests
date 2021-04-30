@@ -12,6 +12,7 @@ fn heavy_fork_test() {
             let sleep_length = current_time * current_time % 1000 + 1000;
             sleep(sleep_length as usize);
         });
+        println!("Heavy fork test iteration {} success.", i);
     }
 }
 

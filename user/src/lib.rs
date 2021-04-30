@@ -225,3 +225,6 @@ pub fn munmap(start: usize, len: usize) -> isize {
 pub fn spawn(path: &str) -> isize {
     sys_spawn(path)
 }
+
+pub fn dup(fd: usize) -> isize { sys_dup(fd) }
+pub fn pipe(pipe_fd: &mut [usize]) -> isize { sys_pipe(pipe_fd) }

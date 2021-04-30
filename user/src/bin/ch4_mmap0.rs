@@ -17,13 +17,13 @@ fn main() -> i32 {
     let prot: usize = 3;
     assert_eq!(len as isize, mmap(start, len, prot));
     for i in start..(start + len) {
-        let mut addr: *mut u8 = i as *mut u8;
+        let addr: *mut u8 = i as *mut u8;
         unsafe {
             *addr = i as u8;
         }
     }
     for i in start..(start + len) {
-        let mut addr: *mut u8 = i as *mut u8;
+        let addr: *mut u8 = i as *mut u8;
         unsafe {
             assert_eq!(*addr, i as u8);
         }

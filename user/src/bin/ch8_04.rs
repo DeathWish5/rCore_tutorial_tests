@@ -10,8 +10,8 @@ use user_lib::{ch8, *};
 #[no_mangle]
 pub unsafe fn main() -> i32 {
     let mut bug: [u8; 200] = [0; 200];
-    open("fname0", OpenFlags::CREATE | OpenFlags::WRONLY);
-    open("fname1", OpenFlags::CREATE | OpenFlags::WRONLY);
+    open("fname0\0", OpenFlags::CREATE | OpenFlags::WRONLY);
+    open("fname1\0", OpenFlags::CREATE | OpenFlags::WRONLY);
     println!("GOOD LUCK");
     read(1, &mut bug);
     write(65537, slice::from_raw_parts_mut(993 as *mut _, 233));
@@ -25,7 +25,7 @@ pub unsafe fn main() -> i32 {
     close(2);
     println!("[ERROR]I need fuzzy ...");
     open(
-        "编程是一件危险的事情",
+        "编程是一件危险的事情\0",
         OpenFlags::CREATE | OpenFlags::WRONLY,
     );
     set_priority(-7);
@@ -33,15 +33,15 @@ pub unsafe fn main() -> i32 {
     mail_write(100000, slice::from_raw_parts(0 as *const _, 53153));
     mail_write(133, &bug);
     mail_write(0, slice::from_raw_parts(0x1ff0 as *const _, 53153));
-    link("nonono", "yesyesyes");
-    link("fname0", "fname1");
-    link("fname1", "fname0");
-    link("fname0", "fname0");
-    link("\0", "fname1");
+    link("nonono\0", "yesyesyes\0");
+    link("fname0\0", "fname1\0");
+    link("fname1\0", "fname0\0");
+    link("fname0\0", "fname0\0");
+    link("\0", "fname1\0");
     let stat: *const Stat = 0 as *const _;
     ch8::raw_sys_fstat(0, stat);
     ch8::raw_sys_fstat(313, stat);
-    sys_unlinkat(555, "➑➑➑➑➑➑", 1);
-    sys_linkat(0, "QAQ", 7, "❆❆❆❆❆", 0);
+    sys_unlinkat(555, "➑➑➑➑➑➑\0", 1);
+    sys_linkat(0, "QAQ\0", 7, "❆❆❆❆❆\0", 0);
     0
 }
