@@ -6,7 +6,7 @@ extern crate user_lib;
 
 use user_lib::mmap;
 
-const UNUSED_START: usize = 0x8000;
+const UNUSED_START: usize = 0x10000;
 const N: usize = 0x800;
 const LEN: usize = 0x10000;
 
