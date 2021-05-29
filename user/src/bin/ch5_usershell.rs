@@ -33,6 +33,9 @@ pub fn main() -> i32 {
                     let cpid = spawn(line.as_str());
                     if cpid < 0 {
                         println!("invalid file name");
+                        line.clear();
+                        print!(">> ");
+                        flush();
                         continue;
                     }
                     let mut xstate: i32 = 0;
