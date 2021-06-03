@@ -33,22 +33,22 @@ pub fn main() -> i32 {
                     let cpid = spawn(line.as_str());
                     if cpid < 0 {
                         println!("invalid file name");
-                        continue;
-                    }
-                    let mut xstate: i32 = 0;
-                    let mut exit_pid: isize;
-                    loop {
-                        exit_pid = waitpid(cpid as usize, &mut xstate);
-                        if exit_pid == -1 {
-                            yield_();
-                        } else {
-                            assert_eq!(cpid, exit_pid);
-                            println!("Shell: Process {} exited with code {}", cpid, xstate);
-                            break;
+                    } else {
+                        let mut xstate: i32 = 0;
+                        let mut exit_pid: isize;
+                        loop {
+                            exit_pid = waitpid(cpid as usize, &mut xstate);
+                            if exit_pid == -1 {
+                                yield_();
+                            } else {
+                                assert_eq!(cpid, exit_pid);
+                                println!("Shell: Process {} exited with code {}", cpid, xstate);
+                                break;
+                            }
                         }
                     }
-                    line.clear();
                 }
+                line.clear();
                 print!(">> ");
                 flush();
             }
