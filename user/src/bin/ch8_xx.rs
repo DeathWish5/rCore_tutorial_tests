@@ -6,8 +6,10 @@ extern crate user_lib;
 use user_lib::ch8::*;
 use user_lib::{open, unlink, OpenFlags};
 
+#[allow(dead_code)]
 const SYSCALL_NUM: usize = 20;
 
+#[allow(dead_code)]
 const SYSCALL_IDS: [usize; SYSCALL_NUM] = [
     SYSCALL_OPENAT,       //  usize = 56;
     SYSCALL_CLOSE,        //  usize = 57;
@@ -31,10 +33,13 @@ const SYSCALL_IDS: [usize; SYSCALL_NUM] = [
     SYSCALL_MAIL_WRITE,   //  usize = 402;
 ];
 
+#[allow(dead_code)]
 fn rand_syscall_id() -> usize {
     0
 }
 
-fn main() {
+#[no_mangle]
+pub fn main() -> i32 {
     // TODO: a naive fuzzy
+    0
 }

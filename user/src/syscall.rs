@@ -20,6 +20,8 @@ pub const SYSCALL_MMAP: usize = 222;
 pub const SYSCALL_SPAWN: usize = 400;
 pub const SYSCALL_MAIL_READ: usize = 401;
 pub const SYSCALL_MAIL_WRITE: usize = 402;
+pub const SYSCALL_DUP: usize = 24;
+pub const SYSCALL_PIPE: usize = 59;
 
 pub fn syscall(id: usize, args: [usize; 3]) -> isize {
     let mut ret: isize;
@@ -162,4 +164,12 @@ pub fn sys_munmap(start: usize, len: usize) -> isize {
 
 pub fn sys_spawn(path: &str) -> isize {
     syscall(SYSCALL_SPAWN, [path.as_ptr() as usize, 0, 0])
+}
+
+pub fn sys_dup(fd: usize) -> isize {
+    syscall(SYSCALL_DUP, [fd, 0, 0])
+}
+
+pub fn sys_pipe(pipe: &mut [usize]) -> isize {
+    syscall(SYSCALL_PIPE, [pipe.as_mut_ptr() as usize, 0, 0])
 }

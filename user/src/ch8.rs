@@ -16,21 +16,23 @@ where
     F: FnOnce(usize),
 {
     let n: usize = 200;
+    let mut cnt = 0;    // 统计 fork 成功的次数
     for idx in 0..n {
         let pid = fork();
         if pid == 0 {
             func(idx);
             exit(0);
+        } else if pid > 0 {
+            cnt += 1;
         }
     }
     let mut exit_code: i32 = 0;
-    for _ in 0..n {
+    for _ in 0..cnt {
         assert!(wait(&mut exit_code) > 0);
         assert_eq!(exit_code, 0);
     }
     assert!(wait(&mut exit_code) < 0);
 }
-
 pub fn get_pc() -> usize {
     let mut ra: usize;
     unsafe {
